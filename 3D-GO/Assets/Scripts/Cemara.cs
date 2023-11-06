@@ -8,6 +8,7 @@ public class CameraController : MonoBehaviour
     public float panSpeed = 10f;
     public float turnSpeed = 100f;
     public float zoomSpeed = 10f;
+    public float verticalSpeed = 1000f;
 
     private Camera freeLookCam;
     private Vector3 dragOrigin;
@@ -40,12 +41,12 @@ public class CameraController : MonoBehaviour
             pos += transform.right * panSpeed * Time.deltaTime;
         }
 
+        // Adjust the camera's vertical position using the mouse scroll wheel
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+        pos.y += scroll * verticalSpeed * Time.deltaTime;
+
         // Update the position
         transform.position = pos;
-        
-        // Zoom with scroll wheel
-        float scroll = Input.GetAxis("Mouse ScrollWheel");
-        freeLookCam.transform.Translate(0, 0, scroll * zoomSpeed, Space.Self);
 
         // Right-click to rotate camera
         if (Input.GetMouseButtonDown(1)) // Right-click was pressed
