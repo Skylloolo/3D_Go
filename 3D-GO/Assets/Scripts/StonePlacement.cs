@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BoardPosition : MonoBehaviour
 {
-    public enum StoneState { None, White, Black }
+    public int xIndex, yIndex, zIndex;
     public StoneState currentState = StoneState.None;
 
     public GameObject whiteStonePrefab;
@@ -30,5 +30,15 @@ public class BoardPosition : MonoBehaviour
 
         currentState = newState;
         return true;  // Valid move.
+    }
+
+    public void RemoveStone()
+    {
+        if (currentStone != null)
+        {
+            Destroy(currentStone); // Removes the stone GameObject from the scene
+            currentStone = null;
+            currentState = StoneState.None;
+        }
     }
 }
